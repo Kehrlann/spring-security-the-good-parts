@@ -1,4 +1,3 @@
-# keep
 spring:
   thymeleaf:
     cache: false
