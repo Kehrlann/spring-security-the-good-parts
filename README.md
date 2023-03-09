@@ -52,3 +52,14 @@ $ curl localhost:8080 -H "x-forbidden: true" -v
 $ # or
 $ http localhost:8080 x-forbidden:true
 ```
+
+### Step 5: RobotAuthenticationFilter
+
+We create a filter that authenticates the user. In this case, it's a "robot account" that sends us a
+secret password in the `X-Robot-Password` header.
+
+If the header is present, we make sure the password is correct. If the password is incorrect, we
+reject the request. If the password is fine, we perform the actual authentication by creating an
+instance of an appropriate implementation of the `Authentication` interface.
+
+If the header is absent, we let the rest of the filter chain decide what to do.
