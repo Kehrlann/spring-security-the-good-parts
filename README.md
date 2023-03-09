@@ -91,3 +91,14 @@ This leverages the `ProviderManager`, which, for examples, produces Spring event
 succeeds or fails. We listen to `AuthenticationSuccessEvents` and do a System.out.println with the
 Authentication class and the Authentication name. Notice how RobotAuthentications are _not_ logged,
 as they happen directly in a filter, without using an AuthenticationManager.
+
+### Step 7: Rework the RobotAuthenticationFilter to use AuthenticationManager
+
+We make sure the RobotAuthenticationFilter actually uses an Authentication Manager, like the rest of
+Spring Security. To do this, we need to create an "unauthenticated" version of the
+RobotAuthentication. We also need an AuthenticationProvider to handle those RobotAuthentication.
+
+To get an AuthenticationManager, we access the Filter chain's local AuthenticationManager. See
+the [Spring Security without the WebSecurityConfigurerAdapter blog post](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter),
+which talks about how to access that class. We create a bespoke AbstractHttpConfigurer and put all
+Robot-related configuration in the class, so we can get the authentication manager.
