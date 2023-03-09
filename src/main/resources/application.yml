@@ -1,6 +1,13 @@
 spring:
   thymeleaf:
     cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: "${GOOGLE_CLIENT_ID:<PLACEHOLDER>}"
+            client-secret: "${GOOGLE_CLIENT_SECRET:<PLACEHOLDER>}"
 server:
   address: 127.0.0.1 # faster shutdown on multi-interface setups
   servlet:

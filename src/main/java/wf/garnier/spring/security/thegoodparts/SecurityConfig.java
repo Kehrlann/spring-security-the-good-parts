@@ -30,6 +30,7 @@ class SecurityConfig {
 						}
 				)
 				.formLogin(withDefaults())
+				.oauth2Login(withDefaults())
 				.build();
 	}
 
