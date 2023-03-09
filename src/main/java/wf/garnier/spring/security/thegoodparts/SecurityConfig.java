@@ -31,6 +31,7 @@ class SecurityConfig {
 				.formLogin(withDefaults())
 				.oauth2Login(withDefaults())
 				.addFilterBefore(new ForbiddenFilter(), AuthorizationFilter.class)
+				.addFilterBefore(new RobotAuthenticationFilter(), AuthorizationFilter.class)
 				.build();
 	}
 
