@@ -4,27 +4,44 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
 
 class RobotAuthenticationToken extends AbstractAuthenticationToken {
-	public RobotAuthenticationToken() {
-		super(AuthorityUtils.createAuthorityList("ROLE_robot"));
-	}
+    private final String password;
 
-	@Override
-	public Object getCredentials() {
-		return null;
-	}
+    private RobotAuthenticationToken() {
+        super(AuthorityUtils.createAuthorityList("ROLE_robot"));
+        super.setAuthenticated(true);
+        this.password = null;
+    }
 
-	@Override
-	public Object getPrincipal() {
-		return "Ms Robot 🤖";
-	}
+    private RobotAuthenticationToken(String password) {
+        super(AuthorityUtils.NO_AUTHORITIES);
+        super.setAuthenticated(false);
+        this.password = password;
+    }
 
-	@Override
-	public boolean isAuthenticated() {
-		return true;
-	}
+    public static RobotAuthenticationToken authenticated() {
+        return new RobotAuthenticationToken();
+    }
 
-	@Override
-	public void setAuthenticated(boolean authenticated) {
-		throw new RuntimeException("DON'T CHANGE THE AUTH STATUS 😱");
-	}
+    public static RobotAuthenticationToken unauthenticated(String password) {
+        return new RobotAuthenticationToken(password);
+    }
+
+    @Override
+    public Object getCredentials() {
+        return this.getPassword();
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    @Override
+    public Object getPrincipal() {
+        return "Ms Robot 🤖";
+    }
+
+    @Override
+    public void setAuthenticated(boolean authenticated) {
+        throw new RuntimeException("DON'T CHANGE THE AUTH STATUS 😱");
+    }
 }
