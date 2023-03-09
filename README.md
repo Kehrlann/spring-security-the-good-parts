@@ -63,3 +63,31 @@ reject the request. If the password is fine, we perform the actual authenticatio
 instance of an appropriate implementation of the `Authentication` interface.
 
 If the header is absent, we let the rest of the filter chain decide what to do.
+
+See:
+
+```shell
+$ curl localhost:8080/private -H "x-robot-password: beep-boop"
+$ # or
+$ http localhost:8080/private x-robot-password:beep-boop
+```
+
+### Step 6: Our first AuthenticationProvider, because user "daniel" is _special_
+
+We create an AuthenticationProvider that will let user "daniel" in, no matter the password.
+
+We also turn on HTTP Basic authentication - and we don't have to do anything to grant the same
+rights to "daniel".
+
+See:
+
+```shell
+$ curl localhost:8080/private -u "daniel:foobar"
+$ # or
+$ http localhost:8080/private --auth "daniel:barfoo"
+```
+
+This leverages the `ProviderManager`, which, for examples, produces Spring events when a login
+succeeds or fails. We listen to `AuthenticationSuccessEvents` and do a System.out.println with the
+Authentication class and the Authentication name. Notice how RobotAuthentications are _not_ logged,
+as they happen directly in a filter, without using an AuthenticationManager.
