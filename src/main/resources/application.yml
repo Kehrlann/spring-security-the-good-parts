@@ -1,8 +1,8 @@
-# keep
 spring:
   thymeleaf:
     cache: false
 server:
+  address: 127.0.0.1 # faster shutdown on multi-interface setups
   servlet:
     session:
       persistent: false
