@@ -30,4 +30,10 @@ demo purposes.
 Finally, we leverage the `Authentication` object that Spring Security creates for us to display the
 name of the logged-in user.
 
+### Step 3: Add SSO, with oauth2-login
 
+We add the dependencies and the code to make SSO login work. It requires adding some properties, and
+just enabling "oauth2 login" in our previous security configuration. Everything stays the same.
+
+We want a nicer "authentication name" when logged in with Google, rather than the ID we get back, so
+we tweak our GreetingController to display the e-mail when doing SSO login.
