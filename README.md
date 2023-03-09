@@ -102,3 +102,14 @@ To get an AuthenticationManager, we access the Filter chain's local Authenticati
 the [Spring Security without the WebSecurityConfigurerAdapter blog post](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter),
 which talks about how to access that class. We create a bespoke AbstractHttpConfigurer and put all
 Robot-related configuration in the class, so we can get the authentication manager.
+
+### Step8: Rework the RobotAuthenticationFilter to extend AuthenticationFilter
+
+Most `Authentication` filters in Spring Security can be written as an `AuthenticationFilter`
+sublclass. It follows a simple "composition" pattern, where you declard an
+`AuthenticationConverter`, an `AuthenticationManager`, and both success and failure handlers. The
+wiring is then done by the base class, which does:
+
+1. HttpRequest -> [AuthenticationConverter] -> Authentication
+2. Authentication -> [AuthenticationManager] -> Authentication in the SecurityContext (if succesful)
+3. Authentication(Exception) -> [Authentication(Success|Failure)Handler]
