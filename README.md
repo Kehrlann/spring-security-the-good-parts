@@ -37,3 +37,18 @@ just enabling "oauth2 login" in our previous security configuration. Everything 
 
 We want a nicer "authentication name" when logged in with Google, rather than the ID we get back, so
 we tweak our GreetingController to display the e-mail when doing SSO login.
+
+### Step 4: Our first Filter
+
+We create our first Filter, the `VerbotenFilter`. It sets the response code to 403 (Forbidden), with
+an error message, when the `x-forbidden: true` header is present. Otherwise it's a no-op.
+
+We register it in our filter chain.
+
+You can see the results, e.g. using HTTPie or cURL:
+
+```shell
+$ curl localhost:8080 -H "x-forbidden: true" -v
+$ # or
+$ http localhost:8080 x-forbidden:true
+```
