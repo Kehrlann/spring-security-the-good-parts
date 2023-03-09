@@ -33,8 +33,8 @@ class SecurityConfig {
 				.formLogin(withDefaults())
 				.oauth2Login(withDefaults())
 				.httpBasic(withDefaults())
+				.apply(new RobotAccountConfigurer()).and()
 				.addFilterBefore(new ForbiddenFilter(), AuthorizationFilter.class)
-				.addFilterBefore(new RobotAuthenticationFilter(), AuthorizationFilter.class)
 				.authenticationProvider(new DanielAuthenticationProvider())
 				.build();
 	}
