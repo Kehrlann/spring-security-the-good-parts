@@ -1,54 +1,40 @@
 package wf.garnier.spring.security.thegoodparts;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.security.web.authentication.AuthenticationConverter;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationFilter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-class RobotAuthenticationFilter extends OncePerRequestFilter {
+class RobotAuthenticationFilter extends AuthenticationFilter {
 
     private final static String HEADER_NAME = "x-robot-password";
-    private AuthenticationManager authenticationManager;
+
+    private static final AuthenticationConverter authenticationConverter = req -> {
+        if (Collections.list(req.getHeaderNames()).contains(HEADER_NAME)) {
+            return RobotAuthenticationToken.unauthenticated(req.getHeader(HEADER_NAME));
+        }
+        return null;
+    };
+
+    private final AuthenticationFailureHandler failureHandler = (request, response, exception) -> {
+        response.setStatus(HttpStatus.FORBIDDEN.value());
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        response.setContentType("text/plain;charset=utf8");
+        response.getWriter().write(exception.getMessage());
+    };
+
+    private final AuthenticationSuccessHandler successHandler = (request, response, authentication) -> {
+        // noop
+    };
 
     public RobotAuthenticationFilter(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
-
-    @Override
-    protected void doFilterInternal(
-            HttpServletRequest request, HttpServletResponse response, FilterChain filterChain
-    ) throws ServletException, IOException {
-        if (!Collections.list(request.getHeaderNames()).contains(HEADER_NAME)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-
-        var authRequest = RobotAuthenticationToken.unauthenticated(request.getHeader(HEADER_NAME));
-
-        try {
-            var authentication = this.authenticationManager.authenticate(authRequest);
-            var newContext = SecurityContextHolder.createEmptyContext();
-            newContext.setAuthentication(authentication);
-            SecurityContextHolder.setContext(newContext);
-            filterChain.doFilter(request, response);
-            return;
-        } catch (AuthenticationException e) {
-            response.setStatus(HttpStatus.FORBIDDEN.value());
-            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-            response.setContentType("text/plain;charset=utf8");
-            response.getWriter().write(e.getMessage());
-            return;
-        }
-
+        super(authenticationManager, authenticationConverter);
+        setFailureHandler(failureHandler);
+        setSuccessHandler(successHandler);
     }
 }
