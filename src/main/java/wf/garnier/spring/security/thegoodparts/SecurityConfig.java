@@ -34,8 +34,8 @@ class SecurityConfig {
 				.logout(l -> l.logoutSuccessUrl("/"))
 				.oauth2Login(withDefaults())
 				.httpBasic(withDefaults())
+				.with(new RobotAccountConfigurer(), withDefaults())
 				.addFilterBefore(new ForbiddenFilter(), LogoutFilter.class) // filter before auth/logout
-				.addFilterBefore(new RobotAuthenticationFilter(), AuthorizationFilter.class)
 				.authenticationProvider(new DanielAuthenticationProvider())
 				.build();
 	}
