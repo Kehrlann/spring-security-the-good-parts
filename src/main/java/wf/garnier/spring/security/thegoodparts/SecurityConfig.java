@@ -2,14 +2,13 @@ package wf.garnier.spring.security.thegoodparts;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -32,6 +31,7 @@ class SecurityConfig {
 				.formLogin(l -> l.defaultSuccessUrl("/private"))
 				.logout(l -> l.logoutSuccessUrl("/"))
 				.oauth2Login(withDefaults())
+				.addFilterBefore(new ForbiddenFilter(), LogoutFilter.class) // filter before auth/logout
 				.build();
 	}
 
