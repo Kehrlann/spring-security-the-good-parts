@@ -475,22 +475,21 @@ layout: section
 Repo:
 - <logos-github-icon /> https://github.com/Kehrlann/spring-security-the-good-parts
 
+<div style="float:right; margin-right: 00px; text-align: center;">
+  <img src="/qr-code.png" style="margin-bottom: -45px; margin-top: 15px;" >
+</div>
+
 Reach out:
 - <logos-mastodon-icon /> @Kehrlann@hachyderm.io
 - <logos-twitter /> @Kehrlann
+- <logos-firefox /> https://garnier.wf/
 - <fluent-emoji-flat-envelope-with-arrow /> daniel.garnier-moiroux@broadcom.com
 
 ---
-layout: image-right
-image: /qr-code.png
-backgroundSize: 300px
+layout: image
+hideInToc: true
+image: /meet-me.jpg
+class: end
 ---
 
-# 🤔 Questions?
-
-<br>
-
-Feedback 👉👉
-
-Take a minute to leave a comment, it helps a lot to make this better!
-
+# **😁 Thank you!**
