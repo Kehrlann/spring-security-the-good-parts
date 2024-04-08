@@ -1,0 +1,21 @@
+{
+  "name": "sping-boot-native-slides",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --base /sso-live-coding/",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.47.0",
+    "@slidev/theme-default": "*",
+    "@slidev/theme-seriph": "*"
+  },
+  "devDependencies": {
+    "@iconify-json/fluent-emoji-flat": "^1.1.11",
+    "@iconify-json/logos": "^1.1.29",
+    "playwright-chromium": "^1.36.0"
+  },
+  "author": "Daniel Garnier-Moiroux <git@garnier.wf>",
+  "license": "ISC"
+}
