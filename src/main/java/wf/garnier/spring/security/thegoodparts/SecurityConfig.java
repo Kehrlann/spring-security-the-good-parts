@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.intercept.AuthorizationFilter;
+import org.springframework.security.web.context.SecurityContextHolderFilter;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -34,7 +34,7 @@ class SecurityConfig {
 				.oauth2Login(withDefaults())
 				.httpBasic(withDefaults())
 				.apply(new RobotAccountConfigurer()).and()
-				.addFilterBefore(new ForbiddenFilter(), AuthorizationFilter.class)
+				.addFilterAfter(new ForbiddenFilter(), SecurityContextHolderFilter.class) // filter before auth/logout
 				.authenticationProvider(new DanielAuthenticationProvider())
 				.build();
 	}
