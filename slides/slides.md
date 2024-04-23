@@ -31,9 +31,9 @@ class: smaller
 ### Garnier-Moiroux
 <br>
 
-Software Engineer
+Software Engineer @ Broadcom
 
-- <logos-spring-icon /> Broadcom+Tanzu+Spring
+- <logos-spring-icon /> Spring & Tanzu
 - <logos-mastodon-icon /> @Kehrlann@hachyderm.io
 - <logos-twitter /> @Kehrlann
 - <logos-firefox /> https://garnier.wf/
@@ -162,19 +162,6 @@ layout: section
 
 ## ⛔️ Our first filter
 
-
----
-layout: section
----
-
-## A few "real" examples
-
-<br>
-
-### `CorsFilter.java`
-
-### `DefaultLoginPageGeneratingFilter.java`
-
 ---
 layout: section
 ---
@@ -184,49 +171,6 @@ layout: section
 <br>
 
 # `CsrfFilter.java`
-
-
----
-layout: image-right
-image: csrf-exploit.png
-backgroundSize: contain
----
-
-# **C**ross
-# **S**ite
-# **R**equest
-# **F**orgery
-
----
-layout: image-right
-image: csrf-protection.png
-backgroundSize: contain
----
-
-# Protection
-
-<br>
-
-```html
-<form ...>
- <!-- visible inputs -->
-  <input
-      type="hidden"
-      name="_csrf"
-      value="yyy" />
-</form>
-```
-
----
-layout: section
----
-
-## A "real" example
-
-<br>
-
-# `CsrfFilter.java`
-
 
 ---
 
@@ -504,4 +448,4 @@ image: /meet-me.jpg
 class: end
 ---
 
-# **😁 Thank you!**
+# **😁 Merci!**
