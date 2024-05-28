@@ -29,7 +29,8 @@ class SecurityConfig {
 							authorizeHttp.anyRequest().authenticated();
 						}
 				)
-				.formLogin(withDefaults())
+				.formLogin(l -> l.defaultSuccessUrl("/private"))
+				.logout(l -> l.logoutSuccessUrl("/"))
 				.oauth2Login(withDefaults())
 				.build();
 	}
