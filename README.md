@@ -4,7 +4,6 @@ Code for "Spring Security: The Good Parts"
 
 ## Demo scenario
 
-
 ### Step 1: A Boot app, with no security
 
 We create a `/public` and `/private` page. No security is applied.
@@ -115,3 +114,7 @@ wiring is then done by the base class, which does:
 1. HttpRequest -> [AuthenticationConverter] -> Authentication
 2. Authentication -> [AuthenticationManager] -> Authentication in the SecurityContext (if succesful)
 3. Authentication(Exception) -> [Authentication(Success|Failure)Handler]
+
+### Step 9: Add tests for most behavior!
+
+Ensure that you don't break stuff across version upgrades with automated tests ;)
