@@ -1,6 +1,6 @@
 plugins {
 	java
-	id("org.springframework.boot") version "3.4.1"
+	id("org.springframework.boot") version "3.5.0-M3"
 	id("io.spring.dependency-management") version "1.1.6"
 }
 
@@ -10,6 +10,7 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
 	mavenCentral()
+	maven { url = uri("https://repo.spring.io/milestone") }
 }
 
 dependencies {

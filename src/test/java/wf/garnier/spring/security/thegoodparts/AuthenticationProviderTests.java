@@ -94,7 +94,7 @@ class AuthenticationProviderTests {
         page = page.<HtmlButton>querySelector("button").click();
 
         assertThat(page.getUrl()).hasPath("/login").hasParameter("error");
-        assertThat(page.getBody().getTextContent()).contains("Bad credentials");
+        assertThat(page.getBody().getTextContent()).contains("Invalid credentials");
     }
 
 }
